@@ -1,0 +1,11 @@
+# Home-Projects
+ 
+ You can find here all of my home projects
+ 
+ Text-Editor is a standard notepad app in which you can create new, load or save .txt file. You can also search word and see how many words is in text.
+ 
+ Snake-Game - typical snake game, everyone played in snake at classic Nokia 3310 ;)
+ 
+ I'll add more projects in future, so be aware!
+ 
+ Have fun! :)
