@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements ActionListener {
     final int[] y = new int[GAME_UNITS];
     int bodyParts = 3;
     int applesEaten;
+    int highScore;
     int appleX;
     int appleY;
     char direction = 'R';
@@ -117,6 +118,7 @@ public class GamePanel extends JPanel implements ActionListener {
             bodyParts++;
             applesEaten++;
             newApple();
+            setHighScore();
         }
     }
 
@@ -129,18 +131,18 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
 
-            if ((x[0] >= SCREEN_WIDTH) || x[0] < 0) {
-                running = false;
-                gameOvered = true;
-            }
-            if (y[0] >= SCREEN_HEIGHT || y[0] < 0) {
-                running = false;
-                gameOvered = true;
-            }
+        if ((x[0] >= SCREEN_WIDTH) || x[0] < 0) {
+            running = false;
+            gameOvered = true;
+        }
+        if (y[0] >= SCREEN_HEIGHT || y[0] < 0) {
+            running = false;
+            gameOvered = true;
+        }
 
-            if (!running) {
-                timer.stop();
-            }
+        if (!running) {
+            timer.stop();
+        }
     }
 
     public void startGamePanel(Graphics g) {
@@ -184,6 +186,13 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics3 = getFontMetrics(g.getFont());
         g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics3.stringWidth("Score: " + applesEaten)) / 2, g.getFont().getSize());
+
+        //Show high score
+        g.setColor(Color.red);
+        g.setFont(new Font("Ink Free", Font.BOLD, 40));
+        FontMetrics metrics4 = getFontMetrics(g.getFont());
+        g.drawString("High score: " + highScore,
+                (SCREEN_WIDTH - metrics4.stringWidth("High score: " + highScore)) / 2, (SCREEN_HEIGHT - g.getFont().getSize()));
     }
 
     public void gamePause() {
@@ -196,8 +205,10 @@ public class GamePanel extends JPanel implements ActionListener {
         timer.start();
     }
 
-    public void gameRestart() {
-
+    public void setHighScore() {
+        if (applesEaten > highScore) {
+            highScore = applesEaten;
+        }
     }
 
     @Override
@@ -242,9 +253,6 @@ public class GamePanel extends JPanel implements ActionListener {
                             gamePause();
                         }
                     }
-                    break;
-                case KeyEvent.VK_R:
-                    gameRestart();
                     break;
                 case KeyEvent.VK_ENTER:
                     if (!running) {
